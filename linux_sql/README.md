@@ -10,7 +10,7 @@ This project is under development. Since this project follows the GitFlow, the f
 # Implementation
 
 ## Architecture
-
+![ArchitectureDiagram](./assets/ArchitectureDiagram.png)
 ## Scripts
 
 ## Database Modeling
