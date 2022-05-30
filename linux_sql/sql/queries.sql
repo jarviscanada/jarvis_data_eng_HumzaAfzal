@@ -1,3 +1,12 @@
+-- Function to round timestamp to the nearest 5 minutes
+CREATE FUNCTION round5(ts timestamp) RETURNS timestamp AS
+$$
+BEGIN
+    RETURN date_trunc('hour', ts) + date_part('minute', ts):: int / 5 * interval '5 min';
+END;
+$$
+    LANGUAGE PLPGSQL;
+
 -- Group hosts by CPU number and sort by memory size
 SELECT
     cpu_number,
