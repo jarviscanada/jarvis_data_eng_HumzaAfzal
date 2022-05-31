@@ -1,5 +1,4 @@
 # Linux Cluster Monitoring Agent
-This project is under development. Since this project follows the GitFlow, the final work will be merged to the master branch after Team Code Team
 
 # Introduction
 This project is an implementation of a Linux cluster monitoring agent. It registers a computer onto the database and tracks its usage data every minute and stores it in the database. System administrators would find this application useful because it lets them see the usage data on different computers in the cluster to see if they would need to adjust the specifications on any of the machines. The technologies used for this project were bash, git, Docker, and PostgreSQL.
