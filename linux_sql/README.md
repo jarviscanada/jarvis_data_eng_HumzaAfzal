@@ -2,7 +2,7 @@
 This project is under development. Since this project follows the GitFlow, the final work will be merged to the master branch after Team Code Team
 
 # Introduction
-This project is an implementation of a Linux cluster monitoring agent. It registers a computer onto the database and tracks its usage data every minute and stores it into the database. System administrators would find this application useful because it lets them see the usage data on different computers in the cluster to see if they would need to adjust the specifications on any of the machines. The technologies used for this project were bash, git, Docker, and PostgreSQL.
+This project is an implementation of a Linux cluster monitoring agent. It registers a computer onto the database and tracks its usage data every minute and stores it in the database. System administrators would find this application useful because it lets them see the usage data on different computers in the cluster to see if they would need to adjust the specifications on any of the machines. The technologies used for this project were bash, git, Docker, and PostgreSQL.
 
 # Quick Start
 ```
@@ -25,32 +25,32 @@ crontab -e
 ```
 
 # Implementation
-A docker container is created wtih a PostgreSQL image in order to run an instance of the database. The bash script psql_docker.sh achieves this. After the database is setup the ddl.sql file is run in order to set up the tables properly in the database. After this, the two bash scripts are run, host_info.sh first in order to collect the hardware specifications of the machine it was run on. host_usage.info is run after in order to collect usage data of the machine. In order to automate this procress a crontab job is added to make the script run by itself every minute.
+A docker container is created with a PostgreSQL image to run an instance of the database. The bash script psql_docker.sh achieves this. After the database is set up the ddl.sql file is run to set up the tables properly in the database. After this, the two bash scripts are run, host_info.sh first to collect the hardware specifications of the machine it was run on. host_usage.info is run after to collect usage data of the machine. To automate this process a crontab job is added to make the script run by itself every minute.
 
 ## Architecture
 ![ArchitectureDiagram](./assets/ArchitectureDiagram.png)
 ## Scripts
 - psql_docker.sh\
-    Used to start, stop or create a PostgreSQL docker container on localhost on port 5432 named host_agent.
+    Used to start, stop or create a PostgreSQL Docker container on localhost on port 5432 named host_agent.
     ```
     # Usage
     ./linux_sql/scripts/psql_docker.sh <start | stop | create> [db_username] [db_password]
     ```
     db_username and db_password are only required if using the create command
 - host_info.sh\
-    Used to collect host information, particularly hostname, CPU number, CPU architecture, CPU mhz, l2 cache, total memory and a timestamp of the data collection.
+    Used to collect host information, particularly hostname, CPU number, CPU architecture, CPU mhz, l2 cache, total memory, and a timestamp of the data collection.
     ```
     # Usage
     ./linux_sql/scripts/host_info.sh host port db_name db_username db_password
     ```
-    Default values of host, port and db_name are localhost, 5432, and host_agent respectively. db_username and db_password are the values user specified when creating the docker container using the psql_docker.sh file.
+    Default values of the host, port, and db_name are localhost, 5432, and host_agent respectively. db_username and db_password are the values that the user specified when creating the docker container using the psql_docker.sh file.
 - host_usage.sh\
-    Used to collect host usage information, particularly free memory, idle CPU percentage, kernel CPU usage, disk space used and disk IO.
+    Used to collect host usage information, particularly free memory, idle CPU percentage, kernel CPU usage, disk space used, and disk IO.
     ```
     # Usage:
     ./linux_sql/scripts/host_usage.sh host port db_name db_username db_password
     ```
-    Default values of host, port and db_name are localhost, 5432, and host_agent respectively. db_username and db_password are the values user specified when creating the docker container using the psql_docker.sh file.
+    Default values of the host, port, and db_name are localhost, 5432, and host_agent respectively. db_username and db_password are the values that the user specified when creating the docker container using the psql_docker.sh file.
 - crontab\
     Used to automate collecting host usage information every minute.
     ```
@@ -61,7 +61,7 @@ A docker container is created wtih a PostgreSQL image in order to run an instanc
     ```
     This automates the data_usage task by making a cron job that will run on its own every minute.
 - queries.sql\
-    There are three queries in this file. The first query groups hosts by CPU number and sorts by their memory size. The second query shows the average CPU usage percentage over 5 minute intervals of every host. The last query displays the number of data collections that were done in each given 5 minute interval. If this value is less than 3 then it is considered a failure.
+    There are three queries in this file. The first query groups host by CPU number and sorts by their memory size. The second query shows the average CPU usage percentage over 5-minute intervals of every host. The last query displays the number of data collections that were done in each given 5-minute interval. If this value is less than 3 then it is considered a failure.
     ```
     # Usage
     psql -h localhost -U postgres -d host_agent -f sql/queries.sql
@@ -80,9 +80,13 @@ A docker container is created wtih a PostgreSQL image in order to run an instanc
 |-----------|---------|-------------|----------|------------|---------|----------------|
 | timestamp | numeric | numeric     | numeric  | numeric    | numeric | numeric        |
 # Test
-
+To test my bash scripts I exhaustively tested different combinations that users could input (e.g. zero arguments, too many arguments, create without username and password, etc.) and made sure the output I saw gave me desired results. A similar test method was used to test the SQL queries. I manually added test entries into both the host_info and the host_usage tables and ran the queries to make sure that I only got the desired results.
 
 # Deployment
-
+The app was deployed through the use of GitHub, Docker, and crontab. A docker container was created to run the PostgreSQL instance and keep the data stored for future use. Github stores all the code needed for the project and users can easily download the repo onto their machines. Lastly, crontab is used to automate the data collection process and to make sure there are updates every minute.
 
 # Improvements
+Some improvements that need to be added in future updates are:
+- Create a script that sets up everything automatically without the use of opening multiple individual scripts.
+- Add an option on the host_info.sh script to be able to update the machine information already stored in the database.
+- Create a script that will automatically detect if a machine has not been reporting usage data frequently enough and notify the system administrator.
