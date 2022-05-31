@@ -70,11 +70,15 @@ A docker container is created wtih a PostgreSQL image in order to run an instanc
 
 ## Database Modeling
 - `host_info`
+
 | id      | hostname | cpu_number | cpu_architecture | cpu_model | cpu_mhz | l2_cache | total_mem | timestamp |
 |---------|----------|------------|------------------|-----------|---------|----------|-----------|-----------|
 | numeric | variable | numeric    | variable         | variable  | numeric | numeric  | numeric   | timestamp |
 - `host_usage`
 
+| timestamp | host_id | memory_free | cpu_idle | cpu_kernel | disk_io | disk_available |
+|-----------|---------|-------------|----------|------------|---------|----------------|
+| timestamp | numeric | numeric     | numeric  | numeric    | numeric | numeric        |
 # Test
 
 
