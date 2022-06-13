@@ -15,7 +15,7 @@ I am a University of Toronto Graduate with an Honours Bachelor of Science. I maj
 Project source code: [https://github.com/jarviscanada/jarvis_data_eng_HumzaAfzal](https://github.com/jarviscanada/jarvis_data_eng_HumzaAfzal)
 
 
-**Cluster Monitor** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_HumzaAfzal/tree/masterhttps://github.com/jarviscanada/jarvis_data_eng_HumzaAfzal/tree/master/linux_sql)]: Implemented a Linux cluster monitoring agent. It registers a computer onto the database and tracks its usage data every minute and stores it in the database. System administrators would find this application useful because it lets them see the usage data on different computers in the cluster to see if they would need to adjust the specifications on any of the machines. The technologies used for this project were bash, git, Docker, and PostgreSQL.
+**Cluster Monitor** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_HumzaAfzal/tree/masterlinux_sql)]: Implemented a Linux cluster monitoring agent. It registers a computer onto the database and tracks its usage data every minute and stores it in the database. System administrators would find this application useful because it lets them see the usage data on different computers in the cluster to see if they would need to adjust the specifications on any of the machines. The technologies used for this project were bash, git, Docker, and PostgreSQL.
 
 
 ## Highlighted Projects
