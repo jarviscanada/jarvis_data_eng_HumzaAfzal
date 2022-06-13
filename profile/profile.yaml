@@ -1,0 +1,124 @@
+# Preferred name (Characters only)
+name: "Humza Afzal"
+# Your GitHub repo root URL
+github_repo_root_url: https://github.com/jarviscanada/jarvis_data_eng_HumzaAfzal
+
+# Introduce yourself, your academic and professional background.
+# What excites you about the software industry and your passion. At least 80 words
+summary: I am a University of Toronto Graduate with an Honours Bachelor of Science. I majored in Computer Science and Statistics along with a minor in Mathematics. Fintech is interesting to me since I love stocks and personal finance. I also find artificial intelligence interesting and would love to develop its real-world applications.
+
+# Group your skills by level.
+# Your skills can be anything software related (e.g. language, frameworks, methodologies, software, etc.).
+skills:
+  # At least 5 skills
+  proficient:
+    - Java
+    - Linux/Bash
+    - RDBMS/SQL
+    - Agile/Scrum
+    - Git
+    - Python
+  # At least 5 skills
+  competent:
+    - NoSQL
+    - R
+    - Django
+    - REST
+    - C
+  # At least 5 skills
+  familiar:
+    - C#
+    - HTML/CSS
+    - Unreal Engine/Unity
+    - Javascript
+    - Racket/Haskell
+
+# List of Jarvis projects
+jarvis_projects:
+  - name: "Cluster Monitor"
+    git_url: "https://github.com/jarviscanada/jarvis_data_eng_HumzaAfzal/tree/master/linux_sql"
+    # The project description allows hiring managers to understand your project and technologies you used(e.g. programming languages, libraries, algorithms, hardware, tools, etc.).
+    # The project description must start with an action verb (https://bit.ly/3guO98u)
+    description: Implemented a Linux cluster monitoring agent. It registers a computer onto the database and tracks its usage data every minute and stores it in the database. System administrators would find this application useful because it lets them see the usage data on different computers in the cluster to see if they would need to adjust the specifications on any of the machines. The technologies used for this project were bash, git, Docker, and PostgreSQL.
+  # - name: "Core Java Apps"
+  #   git_url: "/core_java"
+  #   description:
+  #     - "Twitter App: Curabitur laoreet tristique leo, eget suscipit nisi. Sed in sodales ex. Maecenas vitae tincidunt dui, et eleifend quam."
+  #     - "JDBC App: Curabitur laoreet tristique leo, eget suscipit nisi. Sed in sodales ex. Maecenas vitae tincidunt dui, et eleifend quam."
+  #     - "Grep App: Curabitur laoreet tristique leo, eget suscipit nisi. Sed in sodales ex. Maecenas vitae tincidunt dui, et eleifend quam."
+  # - name: "Springboot App"
+  #   git_url: "/springboot"
+  #   description: ""
+  # - name: "Python Data Analytics"
+  #   git_url: "/python_data_anlytics"
+  #   description: ""
+  # - name: "Hadoop"
+  #   git_url: "/hadoop"
+  #   description: ""
+  # - name: "Spark"
+  #   git_url: "/spark"
+  #   description: ""
+  # - name: "Cloud/DevOps"
+  #   git_url: "/cloud_devops"
+  #   description: ""
+
+# List of personal or academic projects
+# Feel free to add more projects
+highlighted_projects:
+    #project name
+  - name: "Tower Defense Game"
+    #URL is optional
+    #git_url: "https://github.com/jarviscanada/jarvis_profile_builder"
+    # The project description must start with an action verb (https://bit.ly/3guO98u)
+    description: Utilized pygame to make a tower defense game. Worked in a team of 6 people following an agile/scrum development cycle using Jira with daily standups. Players used currency which is earned through killing monsters and spent by placing towers to kill the monsters. Added hitboxes and movement detection.
+  - name: "Paint Program"
+    git_url:
+    description: Designed a paint application using Java and JavaFX using the MVC design pattern. Collaborated in a team of 4 following an agile/scrum development cycle. Managed the user stories and assigned them to the other collaborators. Implemented different brushes, shapes, and colours as well as a save and load feature.
+
+#List of professional experience
+#The job description allows hiring managers to understand your job and the technologies you used(e.g. programming languages, libraries, algorithms, hardware, tools, etc.).
+#The description must be more than 25 words. If your experience is not software related, please focus on soft skills and achievements (e.g. team collaboration, problem-solving, improvements, communication).
+professional_experience:
+  #Write your Jarvis role as a professional experience rather than training.
+  - title: "Software Developer"
+    company: "Jarvis"
+    duration: "2022-present"
+    # The project description must start with an action verb (https://bit.ly/3guO98u)
+    description: "Worked in a team of 9 in an agile/scrum work environment. Utilized my skills in Linux and SQL to create a Linux cluster monitoring agent."
+  - title: "Line Cook"
+    company: "Nando's"
+    duration: "2019"
+    description: "Excelled in a fast pace work environment that required high precision and attention to detail. Quickly grasped the skills in 1/3 of the time. Worked well as part of a team of 2-4 people. "
+#List of education
+education: 
+  - school_name: "University of Toronto"
+    duration: "2017-2022"
+    degree: "Honours Bachelor of Science"
+    department: "Computer Science, Statistics and Mathematics"
+    # optional
+    awards_achievements: 
+      # - "Scholarship"
+      # - "Dean's List (2015, 2016): Ut enim ad minim veniam"
+      # - "GPA: 3.8/4.0"
+  # - school_name: "XYZ university"
+  #   duration: "2016-2018"
+  #   degree: "Master of Engineering"
+  #   department: "Electrical and Computer Engineering"
+  #   awards_achievements: 
+
+#Optional section
+others:
+  #   #category
+  # - title: #"Certificates"
+  #   #list of items
+  #   # bullets:
+  #   #   - "Udacity Machine Learning (2019)"
+  - title: "Awards"
+    bullets:
+      - "Waterloo Math Competition Medal Winner x2"
+      - "Honour Roll: Grade 9 - 12"
+  # - title: "Activities/Hobbies"
+  #   bullets:
+  #     - "Basketball player"
+  #     - "Competitive gaming"
+  #     - "Volunteer, ABC Food bank: Ut enim ad minim veniam"

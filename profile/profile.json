@@ -1,0 +1,79 @@
+{
+  "education": [
+    {
+      "awards_achievements": null,
+      "degree": "Honours Bachelor of Science",
+      "department": "Computer Science, Statistics and Mathematics",
+      "duration": "2017-2022",
+      "school_name": "University of Toronto"
+    }
+  ],
+  "github_repo_root_url": "https://github.com/jarviscanada/jarvis_data_eng_HumzaAfzal",
+  "highlighted_projects": [
+    {
+      "description": "Utilized pygame to make a tower defense game. Worked in a team of 6 people following an agile/scrum development cycle using Jira with daily standups. Players used currency which is earned through killing monsters and spent by placing towers to kill the monsters. Added hitboxes and movement detection.",
+      "name": "Tower Defense Game"
+    },
+    {
+      "description": "Designed a paint application using Java and JavaFX using the MVC design pattern. Collaborated in a team of 4 following an agile/scrum development cycle. Managed the user stories and assigned them to the other collaborators. Implemented different brushes, shapes, and colours as well as a save and load feature.",
+      "git_url": null,
+      "name": "Paint Program"
+    }
+  ],
+  "jarvis_projects": [
+    {
+      "description": "Implemented a Linux cluster monitoring agent. It registers a computer onto the database and tracks its usage data every minute and stores it in the database. System administrators would find this application useful because it lets them see the usage data on different computers in the cluster to see if they would need to adjust the specifications on any of the machines. The technologies used for this project were bash, git, Docker, and PostgreSQL.",
+      "git_url": "https://github.com/jarviscanada/jarvis_data_eng_HumzaAfzal/tree/master/linux_sql",
+      "name": "Cluster Monitor"
+    }
+  ],
+  "name": "Humza Afzal",
+  "others": [
+    {
+      "bullets": [
+        "Waterloo Math Competition Medal Winner x2",
+        "Honour Roll: Grade 9 - 12"
+      ],
+      "title": "Awards"
+    }
+  ],
+  "professional_experience": [
+    {
+      "company": "Jarvis",
+      "description": "Worked in a team of 9 in an agile/scrum work environment. Utilized my skills in Linux and SQL to create a Linux cluster monitoring agent.",
+      "duration": "2022-present",
+      "title": "Software Developer"
+    },
+    {
+      "company": "Nando's",
+      "description": "Excelled in a fast pace work environment that required high precision and attention to detail. Quickly grasped the skills in 1/3 of the time. Worked well as part of a team of 2-4 people. ",
+      "duration": "2019",
+      "title": "Line Cook"
+    }
+  ],
+  "skills": {
+    "competent": [
+      "NoSQL",
+      "R",
+      "Django",
+      "REST",
+      "C"
+    ],
+    "familiar": [
+      "C#",
+      "HTML/CSS",
+      "Unreal Engine/Unity",
+      "Javascript",
+      "Racket/Haskell"
+    ],
+    "proficient": [
+      "Java",
+      "Linux/Bash",
+      "RDBMS/SQL",
+      "Agile/Scrum",
+      "Git",
+      "Python"
+    ]
+  },
+  "summary": "I am a University of Toronto Graduate with an Honours Bachelor of Science. I majored in Computer Science and Statistics along with a minor in Mathematics. Fintech is interesting to me since I love stocks and personal finance. I also find artificial intelligence interesting and would love to develop its real-world applications."
+}
