@@ -111,7 +111,7 @@ public class JavaGrepImp implements JavaGrep {
   @Override
   public void writeToFile(List<String> lines) throws IOException {
     try {
-      OutputStream stream = new FileOutputStream(this.outFile);
+      OutputStream stream = new FileOutputStream("." + this.outFile);
       OutputStreamWriter writer = new OutputStreamWriter(stream);
       BufferedWriter bufferedWriter = new BufferedWriter(writer);
       for (int i = 0; i < lines.size(); i++) {
