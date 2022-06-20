@@ -36,8 +36,7 @@ public class JavaGrepImp implements JavaGrep {
     javaGrepImp.setOutFile(args[2]);
     try {
       javaGrepImp.process();
-    }
-    catch (Exception e) {
+    } catch (Exception e) {
       javaGrepImp.logger.error("Error: Unable to process", e);
     }
   }
@@ -65,8 +64,7 @@ public class JavaGrepImp implements JavaGrep {
           }
         }
       }
-    }
-    catch (Exception e) {
+    } catch (Exception e) {
       throw e;
     }
 
@@ -83,8 +81,7 @@ public class JavaGrepImp implements JavaGrep {
     for (int i = 0; i < files.size(); i++) {
       if (files.get(i).isDirectory()) {
         cleanedFiles.addAll(listFiles(files.get(i).toString()));
-      }
-      else {
+      } else {
         cleanedFiles.add(files.get(i));
       }
     }
@@ -101,8 +98,7 @@ public class JavaGrepImp implements JavaGrep {
       lines = bufferedReader.lines().collect(Collectors.toList());
       bufferedReader.close();
       reader.close();
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
       throw new IllegalArgumentException("Not a File");
     }
     return lines;
@@ -127,8 +123,7 @@ public class JavaGrepImp implements JavaGrep {
       bufferedWriter.close();
       writer.close();
       stream.close();
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
       throw e;
     }
   }

@@ -8,12 +8,14 @@ public interface JavaGrep {
 
   /**
    * Top level search workflow
+   *
    * @throws IOException
    */
   void process() throws IOException;
 
   /**
    * Traverse a given directory and return all files
+   *
    * @param rootDir input directory
    * @return files under the rootDir
    */
@@ -21,10 +23,11 @@ public interface JavaGrep {
 
   /**
    * Return a file and return all the lines
-   *
-   * FileReader: Opens a file to be read as an input stream. Assumes default buffer and character encoding
-   * BufferedReader: Reads an input stream and buffers the input in order to increase efficiency
-   * Character Encoding: How bytes are converted to characters that are human readable. Most used encoding today is UTF-8.
+   * <p>
+   * FileReader: Opens a file to be read as an input stream. Assumes default buffer and character
+   * encoding BufferedReader: Reads an input stream and buffers the input in order to increase
+   * efficiency Character Encoding: How bytes are converted to characters that are human readable.
+   * Most used encoding today is UTF-8.
    *
    * @param inputFile file to read
    * @return lines
@@ -34,6 +37,7 @@ public interface JavaGrep {
 
   /**
    * check if a line contains the regex pattern (passed by user)
+   *
    * @param line input string
    * @return true if there is a match
    */
@@ -41,10 +45,10 @@ public interface JavaGrep {
 
   /**
    * Write lines to a file
-   *
-   * FileOutputStream: Opens a stream to write data to a file.
-   * OutputStreamWriter: Is a stream that converts character streams to byte stream using a charset.
-   * BufferedWriter: Writes text to a character stream. Buffered to increase efficiency.
+   * <p>
+   * FileOutputStream: Opens a stream to write data to a file. OutputStreamWriter: Is a stream that
+   * converts character streams to byte stream using a charset. BufferedWriter: Writes text to a
+   * character stream. Buffered to increase efficiency.
    *
    * @param lines matched line
    * @throws IOException if write failed
