@@ -13,7 +13,7 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class LambdaStreamExcImp implements LambdaStreamExc {
-  
+
   @Override
   public Stream<String> createStrStream(String ... strings) {
 
