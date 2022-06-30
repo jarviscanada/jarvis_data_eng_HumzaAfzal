@@ -3,7 +3,7 @@ This application utilizes JDBC to access a PostgreSQL database to perform CRUD o
 
 # Implementaiton
 ## ER Diagram
-![ERDiagram] (./assets/ERDiagram.png)
+![ERDiagram](./assets/ERDiagram.png)
 
 ## Design Patterns
 The repository pattern focuses only on single table access per class. In contrast, the DAO pattern allows DOAs to access multiple tables per class. In a DAO pattern, different tables can be joined straight from the database due to their ability to access multiple tables, on the other hand, the repository pattern has to do joins in the code since it can only access one table. The repository pattern allows sharding of database, horizontal scaling, whereas DAOs are better for vertical scaling.
