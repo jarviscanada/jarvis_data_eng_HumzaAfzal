@@ -9,4 +9,4 @@ This application utilizes JDBC to access a PostgreSQL database to perform CRUD o
 The repository pattern focuses only on single table access per class. In contrast, the DAO pattern allows DOAs to access multiple tables per class. In a DAO pattern, different tables can be joined straight from the database due to their ability to access multiple tables, on the other hand, the repository pattern has to do joins in the code since it can only access one table. The repository pattern allows sharding of database, horizontal scaling, whereas DAOs are better for vertical scaling.
 
 # Test
-I would load up test data into the database to test it and call all the methods I wanted to test in the main method in the JDBCExecutor class.
+I would load up test data into the database. I would then call all the methods I wanted to test in the main method of the JDBCExecutor class. I would utilize my error handling in order to troubleshoot problems and verify that the SQL queries were executed correctly by logging into the database on DBeaver.
