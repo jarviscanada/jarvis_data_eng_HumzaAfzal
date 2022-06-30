@@ -17,6 +17,11 @@ Project source code: [https://github.com/jarviscanada/jarvis_data_eng_HumzaAfzal
 
 **Cluster Monitor** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_HumzaAfzal/tree/masterlinux_sql)]: Implemented a Linux cluster monitoring agent. It registers a computer onto the database and tracks its usage data every minute and stores it in the database. System administrators would find this application useful because it lets them see the usage data on different computers in the cluster to see if they would need to adjust the specifications on any of the machines. The technologies used for this project were bash, git, Docker, and PostgreSQL.
 
+**Core Java Apps** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_HumzaAfzal/tree/master/core_java)]:
+      
+  - JDBC App: This application utilizes JDBC to access a PostgreSQL database to perform CRUD operations. The Postgres database was hosted on a Docker container that used the postgres:9.6-alpine image. Maven was used as a build manager to build all the dependencies needed.
+  - Grep App: This project is an implementation of the grep bash command on Java. It parses through all the files in a given root directory and prints out lines based on a regex defined by the user. The technologies used in this app are core java libraries, lambda functions, streams, and the IntelliJ IDEA IDE. Docker was also used to dockerize the application and uploaded it to DockerHub.
+
 
 ## Highlighted Projects
 **Tower Defense Game**: Utilized pygame to make a tower defense game. Worked in a team of 6 people following an agile/scrum development cycle using Jira with daily standups. Players used currency which is earned through killing monsters and spent by placing towers to kill the monsters. Added hitboxes and movement detection.
