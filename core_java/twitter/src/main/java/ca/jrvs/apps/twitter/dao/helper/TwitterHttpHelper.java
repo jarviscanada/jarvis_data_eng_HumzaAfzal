@@ -11,26 +11,26 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
 import org.springframework.http.HttpMethod;
 
 public class TwitterHttpHelper implements HttpHelper {
 
-    private OAuthConsumer consumer;
-    private HttpClient httpClient;
+  private OAuthConsumer consumer;
+  private HttpClient httpClient;
 
-  public TwitterHttpHelper(String consumerKey, String consumerSecret, String accessToken, String tokenSecret) {
+  public TwitterHttpHelper(String consumerKey, String consumerSecret, String accessToken,
+      String tokenSecret) {
     consumer = new CommonsHttpOAuthConsumer(consumerKey, consumerSecret);
     consumer.setTokenWithSecret(accessToken, tokenSecret);
 
     httpClient = new DefaultHttpClient();
   }
+
   @Override
   public HttpResponse httpPost(URI uri) {
     try {
       return executeHttpRequest(HttpMethod.POST, uri, null);
-    }
-    catch (Exception e) {
+    } catch (Exception e) {
       throw new RuntimeException("Failed to execute", e);
     }
   }
@@ -39,8 +39,7 @@ public class TwitterHttpHelper implements HttpHelper {
   public HttpResponse httpGet(URI uri) {
     try {
       return executeHttpRequest(HttpMethod.GET, uri, null);
-    }
-    catch (Exception e) {
+    } catch (Exception e) {
       throw new RuntimeException("Failed to execute", e);
     }
   }
@@ -52,16 +51,14 @@ public class TwitterHttpHelper implements HttpHelper {
       HttpGet request = new HttpGet(uri);
       consumer.sign(request);
       return httpClient.execute(request);
-    }
-    else if (method == HttpMethod.POST) {
+    } else if (method == HttpMethod.POST) {
       HttpPost request = new HttpPost(uri);
       if (stringEntity != null) {
         request.setEntity(stringEntity);
       }
       consumer.sign(request);
       return httpClient.execute(request);
-    }
-    else {
+    } else {
       throw new IllegalArgumentException("Unknown HTTP method " + method.name());
     }
   }

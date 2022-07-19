@@ -1,26 +1,39 @@
 package ca.jrvs.apps.twitter.model;
 
+import java.util.ArrayList;
+
 public class Coordinates {
 
-  private float longitude;
-  private float latitude;
+  private ArrayList<Double> coordinates = new ArrayList<Double>();
   private String type;
 
-  public Coordinates(float longitude, float latitude, String type) {
-    this.longitude = longitude;
-    this.latitude = latitude;
-    this.type = type;
+  public Coordinates() {
+    super();
   }
 
-  public float getLongitude() {
-    return longitude;
+  public Coordinates(double latitude, double longitude) {
+    this.coordinates.add(latitude);
+    this.coordinates.add(longitude);
+    this.type = null;
   }
 
-  public float getLatitude() {
-    return latitude;
+  public double getLatitude() {
+    return coordinates.get(0);
+  }
+
+  public double getLongitude() {
+    return coordinates.get(1);
+  }
+
+  public void setCoordinates(ArrayList<Double> coordinates) {
+    this.coordinates = coordinates;
   }
 
   public String getType() {
     return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
   }
 }

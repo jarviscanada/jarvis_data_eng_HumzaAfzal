@@ -8,6 +8,10 @@ public class UserMention {
   private String name;
   private String screenName;
 
+  public UserMention() {
+    super();
+  }
+
   public UserMention(int id, String idString, int[] indices, String name, String screenName) {
 
     this.id = id;
@@ -36,5 +40,25 @@ public class UserMention {
 
   public String getScreenName() {
     return screenName;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  public void setIdString(String idString) {
+    this.idString = idString;
+  }
+
+  public void setIndices(int[] indices) {
+    this.indices = indices;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setScreenName(String screenName) {
+    this.screenName = screenName;
   }
 }

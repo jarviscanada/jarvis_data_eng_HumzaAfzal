@@ -1,13 +1,15 @@
 package ca.jrvs.apps.twitter.dao.helper;
 
-import ca.jrvs.apps.twitter.example.dto.Company;
+import ca.jrvs.apps.twitter.model.Coordinates;
+import ca.jrvs.apps.twitter.model.Tweet;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.IOException;
+import java.math.BigInteger;
 
-public class JsonParser {
+public class TwitterUtils {
 
   public static String toJson(Object object, boolean prettyJson, boolean includeNullValues)
       throws JsonProcessingException {
@@ -27,9 +29,14 @@ public class JsonParser {
     return (T) m.readValue(json, clazz);
   }
 
-  public static void main(String[] args) throws IOException {
-//    Company company = toObjectFromJson(companyStr, Company.class);
-//    System.out.println(toJson(company, true, false));
+  public static Tweet buildTweet(String text, double longitude, double latitude) {
+    Coordinates tweetCoordinates = new Coordinates(longitude, latitude);
+    return new Tweet(null, BigInteger.valueOf(0), null, text, tweetCoordinates, 0, 0, false, false);
   }
+
+//  public static void main(String[] args) throws IOException {
+////    Company company = toObjectFromJson(companyStr, Company.class);
+////    System.out.println(toJson(company, true, false));
+//  }
 
 }
