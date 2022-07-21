@@ -28,7 +28,7 @@ public class TwitterDaoIntTest {
 
   @Test
   public void create() throws Exception {
-    String text = "Test create method in TwitterDao";
+    String text = "Test create method in TwitterDao " + System.currentTimeMillis();
     double lat = 30;
     double lon = 30;
     Tweet postTweet = TwitterUtils.buildTweet(text, lon, lat);
@@ -44,7 +44,7 @@ public class TwitterDaoIntTest {
 
   @Test
   public void findById() {
-    String text = "Test findById method in TwitterDao";
+    String text = "Test findById method in TwitterDao " + System.currentTimeMillis();
     double lat = 30;
     double lon = 30;
     Tweet postTweet = TwitterUtils.buildTweet(text, lon, lat);
@@ -64,7 +64,7 @@ public class TwitterDaoIntTest {
 
   @Test
   public void deleteById() {
-    String text = "Test deleteById in TwitterDao x2";
+    String text = "Test deleteById in TwitterDao " + System.currentTimeMillis();
     double lat = 30;
     double lon = 30;
     Tweet postTweet = TwitterUtils.buildTweet(text, lon, lat);
