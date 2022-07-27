@@ -1,5 +1,5 @@
 # Introduction
-This project is an utilized the Twitter REST API in order to send requests to either post, look up or delete a tweet. The application takes user input via the command line and converts it into a request which is sent to Twitter using their REST API. Twitter then returns the Tweet object that was either posted, looked up, or deleted and sends it back to the user. This project uses the Twitter REST API, HTTP Client, maven, Docker, the Spring framework, as well as many other Java libraries.
+This project utilized the Twitter REST API in order to send requests to either post, look up or delete a tweet. The application takes user input via the command line and converts it into a request which is sent to Twitter using their REST API. Twitter then returns the Tweet object that was either posted, looked up, or deleted and sends it back to the user. This project uses the Twitter REST API, HTTP Client, maven, Docker, the Spring framework, as well as many other Java libraries.
 
 # Quick Start
 Before using the application, you will need to get the tokens associated with your account and set them up as enviornment variables by doing the following:
