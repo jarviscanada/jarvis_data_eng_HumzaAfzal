@@ -23,11 +23,12 @@
   "jarvis_projects": [
     {
       "description": "Implemented a Linux cluster monitoring agent. It registers a computer onto the database and tracks its usage data every minute and stores it in the database. System administrators would find this application useful because it lets them see the usage data on different computers in the cluster to see if they would need to adjust the specifications on any of the machines. The technologies used for this project were bash, git, Docker, and PostgreSQL.",
-      "git_url": "linux_sql",
+      "git_url": "/linux_sql",
       "name": "Cluster Monitor"
     },
     {
       "description": [
+        "Twitter App: This project utilized the Twitter REST API in order to send requests to either post, look up or delete a tweet. The application takes user input via the command line and converts it into a request which is sent to Twitter using their REST API. Twitter then returns the Tweet object that was either posted, looked up, or deleted and sends it back to the user. This project uses the Twitter REST API, HTTP Client, maven, Docker, the Spring framework, as well as many other Java libraries.",
         "JDBC App: This application utilizes JDBC to access a PostgreSQL database to perform CRUD operations. The Postgres database was hosted on a Docker container that used the postgres:9.6-alpine image. Maven was used as a build manager to build all the dependencies needed.",
         "Grep App: This project is an implementation of the grep bash command on Java. It parses through all the files in a given root directory and prints out lines based on a regex defined by the user. The technologies used in this app are core java libraries, lambda functions, streams, and the IntelliJ IDEA IDE. Docker was also used to dockerize the application and uploaded it to DockerHub."
       ],
