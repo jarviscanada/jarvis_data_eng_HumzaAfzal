@@ -7,6 +7,10 @@ import java.util.Map;
  */
 public class CompareTwoMaps {
 
+  /**
+   * Big O: O(n)
+   * Justification: because looking up on a HashMap is constant and you need to loop through every value
+   */
   public <K,V> boolean compareMaps(Map<K,V> m1, Map<K,V> m2){
 
     return m1.equals(m2);
