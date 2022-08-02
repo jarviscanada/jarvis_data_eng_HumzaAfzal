@@ -2,6 +2,9 @@ package ca.jrvs.practice.codingChallenge;
 
 import java.util.HashMap;
 
+/**
+ * https://www.notion.so/jarvisdev/Two-Sum-20d4a9f380c54876878c872d95cf4af6
+ */
 public class TwoSum {
 
   /**
