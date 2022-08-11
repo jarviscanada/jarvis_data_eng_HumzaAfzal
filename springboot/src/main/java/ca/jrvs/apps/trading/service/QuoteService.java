@@ -26,6 +26,7 @@ public class QuoteService {
   }
 
   public IexQuote findIexQuoteByTicker(String ticker) {
-    return marketDataDao.findById(ticker).orElseThrow(() -> new IllegalArgumentException(ticker + " is invalid"));
+    return marketDataDao.findById(ticker)
+        .orElseThrow(() -> new IllegalArgumentException(ticker + " is invalid"));
   }
 }

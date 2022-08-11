@@ -1,19 +1,12 @@
 package ca.jrvs.apps.trading;
 
-import ca.jrvs.apps.trading.controller.QuoteController;
-import ca.jrvs.apps.trading.dao.MarketDataDao;
-import ca.jrvs.apps.trading.dao.QuoteDao;
 import ca.jrvs.apps.trading.model.config.MarketDataConfig;
-import ca.jrvs.apps.trading.service.QuoteService;
-import com.sun.org.apache.xpath.internal.operations.Quo;
 import org.apache.http.conn.HttpClientConnectionManager;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
 
 @Configuration
 public class AppConfig {
@@ -27,6 +20,7 @@ public class AppConfig {
     cm.setDefaultMaxPerRoute(50);
     return cm;
   }
+
   @Bean
   public MarketDataConfig marketDataConfig() {
     MarketDataConfig marketDataConfig = new MarketDataConfig();

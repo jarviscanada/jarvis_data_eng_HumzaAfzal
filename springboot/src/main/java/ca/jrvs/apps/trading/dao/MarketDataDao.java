@@ -3,16 +3,10 @@ package ca.jrvs.apps.trading.dao;
 import ca.jrvs.apps.trading.dao.utils.TradingUtils;
 import ca.jrvs.apps.trading.model.config.MarketDataConfig;
 import ca.jrvs.apps.trading.model.domain.IexQuote;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import java.io.Closeable;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import javax.swing.text.html.Option;
-import com.fasterxml.jackson.core.type.TypeReference;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.conn.HttpClientConnectionManager;
@@ -37,7 +31,8 @@ public class MarketDataDao implements CrudRepository<IexQuote, String> {
   private HttpClientConnectionManager httpClientConnectionManager;
 
   @Autowired
-  public MarketDataDao(HttpClientConnectionManager httpClientConnectionManager, MarketDataConfig marketDataConfig) {
+  public MarketDataDao(HttpClientConnectionManager httpClientConnectionManager,
+      MarketDataConfig marketDataConfig) {
     this.httpClientConnectionManager = httpClientConnectionManager;
     IEX_BATCH_URL = marketDataConfig.getHost() + IEX_BATCH_PATH + marketDataConfig.getToken();
   }
@@ -72,7 +67,7 @@ public class MarketDataDao implements CrudRepository<IexQuote, String> {
       throw new DataRetrievalFailureException("No Result!");
     }
 
-    JSONObject iexQuotesJson= new JSONObject(result.get());
+    JSONObject iexQuotesJson = new JSONObject(result.get());
 
     List<IexQuote> iexQuotes = new ArrayList<IexQuote>();
 
@@ -103,7 +98,8 @@ public class MarketDataDao implements CrudRepository<IexQuote, String> {
   }
 
   private CloseableHttpClient getHttpClient() {
-    return HttpClients.custom().setConnectionManager(httpClientConnectionManager).setConnectionManagerShared(true).build();
+    return HttpClients.custom().setConnectionManager(httpClientConnectionManager)
+        .setConnectionManagerShared(true).build();
   }
 
   @Override
