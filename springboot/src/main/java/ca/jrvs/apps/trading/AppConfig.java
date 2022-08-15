@@ -1,6 +1,8 @@
 package ca.jrvs.apps.trading;
 
 import ca.jrvs.apps.trading.model.config.MarketDataConfig;
+import javax.sql.DataSource;
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.http.conn.HttpClientConnectionManager;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.slf4j.Logger;
@@ -12,6 +14,9 @@ import org.springframework.context.annotation.Configuration;
 public class AppConfig {
 
   private Logger logger = LoggerFactory.getLogger(AppConfig.class);
+  String jdbcUrl;
+  String user;
+  String password;
 
   @Bean
   public HttpClientConnectionManager httpClientConnectionManager() {
@@ -27,6 +32,25 @@ public class AppConfig {
     marketDataConfig.setHost("https://cloud.iexapis.com/v1");
     marketDataConfig.setToken(System.getenv("IEX_PUB_TOKEN"));
     return marketDataConfig;
+  }
+
+  @Bean
+  public DataSource dataSource() {
+    jdbcUrl =
+        "jdbc:postgresql://" +
+            System.getenv("PSQL_HOST") + ":" +
+            System.getenv("PSQL_PORT") +
+            "/" +
+            System.getenv("PSQL_DB");
+    user = System.getenv("PSQL_USER");
+    password = System.getenv("PSQL_PASSWORD");
+
+    //Never log your credentials/secrets. Use IDE debugger instead
+    BasicDataSource basicDataSource = new BasicDataSource();
+    basicDataSource.setUrl(jdbcUrl);
+    basicDataSource.setUsername(user);
+    basicDataSource.setPassword(password);
+    return basicDataSource;
   }
 
 }
