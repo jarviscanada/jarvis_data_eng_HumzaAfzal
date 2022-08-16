@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataRetrievalFailureException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -82,14 +83,14 @@ public class QuoteDao implements CrudRepository<Quote, String> {
 
   @Override
   public Optional<Quote> findById(String ticker) {
-    String find_sql = "SELECT quote WHERE ticker=?";
+    String find_sql = "SELECT * FROM " + TABLE_NAME + " WHERE ticker=?";
     String[] tickers = new String[]{ticker};
-    Quote quote = jdbcTemplate.queryForObject(find_sql, tickers, Quote.class);
-    if (quote == null) {
-      return Optional.empty();
-    }
-    else {
+    try {
+      Quote quote = jdbcTemplate.queryForObject(find_sql, tickers, Quote.class);
       return Optional.of(quote);
+    }
+    catch (EmptyResultDataAccessException e) {
+      return Optional.empty();
     }
   }
 
@@ -101,24 +102,28 @@ public class QuoteDao implements CrudRepository<Quote, String> {
 
   @Override
   public List<Quote> findAll() {
-    String find_sql = "SELECT quote";
+    String find_sql = "SELECT quote FROM " + TABLE_NAME;
     List<Quote> quotes = jdbcTemplate.queryForList(find_sql, Quote.class);
     return quotes;
   }
 
   @Override
   public long count() {
-    return 0;
+    String count_sql = "SELECT COUNT(*) FROM " + TABLE_NAME;
+    return jdbcTemplate.queryForObject(count_sql, Long.class);
   }
 
   @Override
-  public void deleteById(String s) {
-
+  public void deleteById(String ticker) {
+    String delete_sql = "DELETE FROM "+ TABLE_NAME + " WHERE ticker=?";
+    Object[] tickers = new Object[] {ticker};
+    jdbcTemplate.update(delete_sql, tickers);
   }
 
   @Override
   public void deleteAll() {
-    String delete_sql = "DELETE"
+    String delete_sql = "DELETE FROM " + TABLE_NAME;
+    jdbcTemplate.update(delete_sql);
   }
 
   @Override
