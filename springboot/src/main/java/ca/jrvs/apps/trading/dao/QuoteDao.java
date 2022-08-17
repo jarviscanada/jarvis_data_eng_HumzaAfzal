@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.sql.DataSource;
+import javax.swing.text.html.Option;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -40,13 +42,14 @@ public class QuoteDao implements CrudRepository<Quote, String> {
 
   @Override
   public Quote save(Quote quote) {
-    if (existsById(quote.getId())) {
+    if (existsById(quote.getTicker())) {
       int updatedRowNo = updateOne(quote);
       if (updatedRowNo != 1) {
         throw new DataRetrievalFailureException("Unable to update quote");
-      } else {
-        addOne(quote);
       }
+    }
+    else {
+      addOne(quote);
     }
     return quote;
   }
@@ -60,13 +63,13 @@ public class QuoteDao implements CrudRepository<Quote, String> {
   }
 
   private int updateOne(Quote quote) {
-    String update_sql = "UPDATE quote SET last_price=?, bid_price=?, bid_size=?, ask_price=? WHERE ticker=?";
+    String update_sql = "UPDATE quote SET last_price=?, bid_price=?, bid_size=?, ask_price=?, ask_size=? WHERE ticker=?";
     return jdbcTemplate.update(update_sql, makeUpdateValues(quote));
   }
 
   private Object[] makeUpdateValues(Quote quote) {
     Object[] elements = new Object[]{quote.getLastPrice(), quote.getBidPrice(), quote.getBidSize(),
-        quote.getAskPrice(), quote.getTicker()};
+        quote.getAskPrice(), quote.getAskSize(), quote.getTicker()};
     return elements;
   }
 
@@ -85,13 +88,19 @@ public class QuoteDao implements CrudRepository<Quote, String> {
   public Optional<Quote> findById(String ticker) {
     String find_sql = "SELECT * FROM " + TABLE_NAME + " WHERE ticker=?";
     String[] tickers = new String[]{ticker};
-    try {
-      Quote quote = jdbcTemplate.queryForObject(find_sql, tickers, Quote.class);
-      return Optional.of(quote);
+
+    List<Quote> quotes = jdbcTemplate.query(find_sql, tickers, new BeanPropertyRowMapper<Quote>(Quote.class));
+    if (quotes.size() == 1) {
+      return Optional.of(quotes.get(0));
     }
-    catch (EmptyResultDataAccessException e) {
+    else if (quotes.size() == 0) {
       return Optional.empty();
     }
+    else {
+      throw new RuntimeException("Duplicate tickers!!");
+    }
+
+
   }
 
   @Override
@@ -102,8 +111,8 @@ public class QuoteDao implements CrudRepository<Quote, String> {
 
   @Override
   public List<Quote> findAll() {
-    String find_sql = "SELECT quote FROM " + TABLE_NAME;
-    List<Quote> quotes = jdbcTemplate.queryForList(find_sql, Quote.class);
+    String find_sql = "SELECT * FROM " + TABLE_NAME;
+    List<Quote> quotes = jdbcTemplate.query(find_sql, new BeanPropertyRowMapper<Quote>(Quote.class));
     return quotes;
   }
 
@@ -115,7 +124,7 @@ public class QuoteDao implements CrudRepository<Quote, String> {
 
   @Override
   public void deleteById(String ticker) {
-    String delete_sql = "DELETE FROM "+ TABLE_NAME + " WHERE ticker=?";
+    String delete_sql = "DELETE FROM " + TABLE_NAME + " WHERE ticker=?";
     Object[] tickers = new Object[] {ticker};
     jdbcTemplate.update(delete_sql, tickers);
   }
