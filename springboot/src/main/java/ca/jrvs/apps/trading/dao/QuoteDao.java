@@ -5,18 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.sql.DataSource;
-import javax.swing.text.html.Option;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataRetrievalFailureException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -47,8 +43,7 @@ public class QuoteDao implements CrudRepository<Quote, String> {
       if (updatedRowNo != 1) {
         throw new DataRetrievalFailureException("Unable to update quote");
       }
-    }
-    else {
+    } else {
       addOne(quote);
     }
     return quote;
@@ -89,14 +84,13 @@ public class QuoteDao implements CrudRepository<Quote, String> {
     String find_sql = "SELECT * FROM " + TABLE_NAME + " WHERE ticker=?";
     String[] tickers = new String[]{ticker};
 
-    List<Quote> quotes = jdbcTemplate.query(find_sql, tickers, new BeanPropertyRowMapper<Quote>(Quote.class));
+    List<Quote> quotes = jdbcTemplate.query(find_sql, tickers,
+        new BeanPropertyRowMapper<Quote>(Quote.class));
     if (quotes.size() == 1) {
       return Optional.of(quotes.get(0));
-    }
-    else if (quotes.size() == 0) {
+    } else if (quotes.size() == 0) {
       return Optional.empty();
-    }
-    else {
+    } else {
       throw new RuntimeException("Duplicate tickers!!");
     }
 
@@ -112,7 +106,8 @@ public class QuoteDao implements CrudRepository<Quote, String> {
   @Override
   public List<Quote> findAll() {
     String find_sql = "SELECT * FROM " + TABLE_NAME;
-    List<Quote> quotes = jdbcTemplate.query(find_sql, new BeanPropertyRowMapper<Quote>(Quote.class));
+    List<Quote> quotes = jdbcTemplate.query(find_sql,
+        new BeanPropertyRowMapper<Quote>(Quote.class));
     return quotes;
   }
 
@@ -125,7 +120,7 @@ public class QuoteDao implements CrudRepository<Quote, String> {
   @Override
   public void deleteById(String ticker) {
     String delete_sql = "DELETE FROM " + TABLE_NAME + " WHERE ticker=?";
-    Object[] tickers = new Object[] {ticker};
+    Object[] tickers = new Object[]{ticker};
     jdbcTemplate.update(delete_sql, tickers);
   }
 

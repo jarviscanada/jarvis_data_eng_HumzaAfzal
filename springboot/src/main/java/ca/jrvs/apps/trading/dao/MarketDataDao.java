@@ -90,8 +90,7 @@ public class MarketDataDao implements CrudRepository<IexQuote, String> {
 
     try {
       HttpResponse response = client.execute(httpGet);
-      //TODO : HERE
-      String result = "{" + EntityUtils.toString(response.getEntity()) + "}";
+      String result = EntityUtils.toString(response.getEntity());
       return Optional.of(result);
     } catch (Exception e) {
       throw new RuntimeException("Failed to execute", e);

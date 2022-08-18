@@ -74,24 +74,43 @@ public class QuoteServiceIntTest {
   public void saveQuotes() {
     ArrayList<String> tickers = new ArrayList<String>();
     tickers.add("AAPL");
-    tickers.add("tTSLA");
-    tickers.add("FB");
+    tickers.add("TSLA");
+    tickers.add("META");
     List<Quote> resultQuotes = quoteService.saveQuotes(tickers);
     assertNotNull(resultQuotes);
-    assertEquals("aapl", resultQuotes.get(0).getTicker());
-    assertEquals("tsla", resultQuotes.get(1).getTicker());
-    assertEquals("fb", resultQuotes.get(2).getTicker());
+    assertEquals(resultQuotes.get(0).getTicker(), quoteDao.findById("AAPL").get().getTicker());
+    assertEquals(resultQuotes.get(1).getTicker(), quoteDao.findById("TSLA").get().getTicker());
+    assertEquals(resultQuotes.get(2).getTicker(), quoteDao.findById("META").get().getTicker());
+    quoteDao.deleteAll();
   }
 
   @Test
   public void saveQuote() {
+    String ticker = "META";
+    Quote quote = quoteService.saveQuote(ticker);
+    assertNotNull(quote);
+    assertEquals("META", quoteDao.findById("META").get().getTicker());
+    quoteDao.deleteAll();
   }
 
   @Test
   public void findIexQuoteByTicker() {
+    String ticker = "AAPL";
+    IexQuote iexQuote = quoteService.findIexQuoteByTicker(ticker);
+    assertNotNull(iexQuote);
+    assertEquals(ticker, iexQuote.getSymbol());
   }
 
   @Test
   public void findAllQuotes() {
+    ArrayList<String> tickers = new ArrayList<String>();
+    tickers.add("AAPL");
+    tickers.add("TSLA");
+    tickers.add("META");
+    List<Quote> quotes = quoteService.saveQuotes(tickers);
+    List<Quote> result = quoteService.findAllQuotes();
+    assertNotNull(result);
+    assertEquals(quotes.size(), result.size());
+    quoteDao.deleteAll();
   }
 }

@@ -1,7 +1,5 @@
 package ca.jrvs.apps.trading.dao;
 
-import net.bytebuddy.implementation.bytecode.Throw;
-
 public class ResourceNotFoundException extends Exception {
 
   public ResourceNotFoundException(String errorMessage) {

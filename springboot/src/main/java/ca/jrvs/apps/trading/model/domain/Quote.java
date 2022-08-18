@@ -9,17 +9,6 @@ public class Quote implements Entity<String> {
   private Double askPrice;
   private Integer askSize;
 
-//  public Quote() {
-//
-//  }
-//  public Quote(String ticker, double lastPrice, double bidPrice, int bidSize, double askPrice, int askSize) {
-//    this.ticker = ticker;
-//    this.lastPrice = lastPrice;
-//    this.bidPrice = bidPrice;
-//    this.bidSize = bidSize;
-//    this.askPrice = askPrice;
-//    this.askSize = askSize;
-//  }
   @Override
   public String getId() {
     return ticker;

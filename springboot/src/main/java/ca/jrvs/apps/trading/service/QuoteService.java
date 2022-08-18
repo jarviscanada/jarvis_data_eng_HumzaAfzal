@@ -6,7 +6,6 @@ import ca.jrvs.apps.trading.dao.QuoteDao;
 import ca.jrvs.apps.trading.dao.ResourceNotFoundException;
 import ca.jrvs.apps.trading.model.domain.IexQuote;
 import ca.jrvs.apps.trading.model.domain.Quote;
-import com.sun.org.apache.xpath.internal.operations.Quo;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -53,9 +52,9 @@ public class QuoteService {
     Quote quote = new Quote();
 
     quote.setId(iexQuote.getSymbol());
-    quote.setAskPrice(Double.valueOf(iexQuote.getIexAskPrice()));
+    quote.setAskPrice((double) iexQuote.getIexAskPrice());
     quote.setAskSize(iexQuote.getIexAskSize());
-    quote.setBidPrice(Double.valueOf(iexQuote.getIexBidPrice()));
+    quote.setBidPrice((double) iexQuote.getIexBidPrice());
     quote.setBidSize(iexQuote.getIexBidSize());
     quote.setLastPrice(iexQuote.getLatestPrice());
     return quote;
@@ -75,8 +74,7 @@ public class QuoteService {
     if (iexQuoteOption.isPresent()) {
       quote = buildQuoteFromIexQuote(iexQuoteOption.get());
       return quoteDao.save(quote);
-    }
-    else {
+    } else {
       throw new IllegalArgumentException("Ticker not found");
     }
   }
