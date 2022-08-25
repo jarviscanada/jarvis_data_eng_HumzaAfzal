@@ -1,6 +1,8 @@
 package ca.jrvs.apps.trading.dao;
 
 import ca.jrvs.apps.trading.model.domain.Entity;
+import ca.jrvs.apps.trading.model.domain.Quote;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -66,32 +68,53 @@ public abstract class JdbcCrudDao<T extends Entity<Integer>> implements CrudRepo
 
   @Override
   public boolean existsById(Integer id){
-    return false;
+
+    Optional<T> result = findById(id);
+    return result.isPresent();
   }
 
   @Override
   public List<T> findAll() {
-    return null;
+
+    String selectSql = "SELECT * FROM " + getTableName();
+
+    List<T> entities = getJdbcTemplate().query(selectSql,
+        BeanPropertyRowMapper.newInstance(getEntityClass()));
+    return entities;
   }
 
   @Override
   public List<T> findAllById(Iterable<Integer> ids) {
-    return null;
+    List<T> objects = new ArrayList<>();
+    for (int id : ids) {
+      Optional<T> result = findById(id);
+      if (result.isPresent()) {
+        objects.add(result.get());
+      }
+      else {
+        throw new DataRetrievalFailureException("Could not find id " + id);
+      }
+    }
+    return objects;
   }
 
   @Override
   public void deleteById(Integer id) {
-
+    String delete_sql = "DELETE FROM " + getTableName() + " WHERE " + getIdColumnName() +" =?";
+    Object[] ids = new Object[]{id};
+    getJdbcTemplate().update(delete_sql, ids);
   }
 
   @Override
   public long count() {
-    return 0;
+    String count_sql = "SELECT COUNT(*) FROM " + getTableName();
+    return getJdbcTemplate().queryForObject(count_sql, Long.class);
   }
 
   @Override
   public void deleteAll() {
-    
+    String delete_sql = "DELETE FROM " + getTableName();
+    getJdbcTemplate().update(delete_sql);
   }
 
 }
