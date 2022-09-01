@@ -23,8 +23,10 @@ public class AccountDao extends JdbcCrudDao<Account> {
   @Autowired
   public AccountDao(DataSource dataSource) {
     this.jdbcTemplate = new JdbcTemplate(dataSource);
-    this.simpleInsert = new SimpleJdbcInsert(dataSource).withTableName(TABLE_NAME).usingGeneratedKeyColumns(ID_COLUMN);
+    this.simpleInsert = new SimpleJdbcInsert(dataSource).withTableName(TABLE_NAME)
+        .usingGeneratedKeyColumns(ID_COLUMN);
   }
+
   @Override
   public JdbcTemplate getJdbcTemplate() {
     return jdbcTemplate;
@@ -48,6 +50,13 @@ public class AccountDao extends JdbcCrudDao<Account> {
   @Override
   Class<Account> getEntityClass() {
     return Account.class;
+  }
+
+  public void updateAmountById(Integer id, Double amount) {
+    Account account = findById(id).get();
+    String updateSql = "UPDATE " + TABLE_NAME + " SET amount =? WHERE " + ID_COLUMN + " =?";
+    Double newAmount = account.getAmount() + amount;
+    jdbcTemplate.update(updateSql, newAmount, id);
   }
 
   @Override

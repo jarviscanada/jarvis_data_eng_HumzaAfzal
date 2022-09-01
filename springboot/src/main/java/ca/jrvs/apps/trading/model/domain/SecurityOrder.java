@@ -7,9 +7,13 @@ public class SecurityOrder implements Entity<Integer> {
   private String notes;
   private Double price;
   private Integer size;
-  public enum statusEnum {FILLED, CANCELED, PENDING};
+
+  public enum statusEnum {FILLED, CANCELED, PENDING}
+
+  ;
   private Integer status;
   private String ticker;
+
   @Override
   public Integer getId() {
     return id;

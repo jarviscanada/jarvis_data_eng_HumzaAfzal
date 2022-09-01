@@ -7,6 +7,7 @@ import org.apache.http.conn.HttpClientConnectionManager;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,8 +15,11 @@ import org.springframework.context.annotation.Configuration;
 public class AppConfig {
 
   private Logger logger = LoggerFactory.getLogger(AppConfig.class);
+  @Value("${app.init.jdbcUrl}")
   String jdbcUrl;
+  @Value("${app.init.jdbcUser}")
   String user;
+  @Value("${app.init.jdbcPass}")
   String password;
 
   @Bean
@@ -36,16 +40,7 @@ public class AppConfig {
 
   @Bean
   public DataSource dataSource() {
-    jdbcUrl =
-        "jdbc:postgresql://" +
-            System.getenv("PSQL_HOST") + ":" +
-            System.getenv("PSQL_PORT") +
-            "/" +
-            System.getenv("PSQL_DB");
-    user = System.getenv("PSQL_USER");
-    password = System.getenv("PSQL_PASSWORD");
 
-    //Never log your credentials/secrets. Use IDE debugger instead
     BasicDataSource basicDataSource = new BasicDataSource();
     basicDataSource.setUrl(jdbcUrl);
     basicDataSource.setUsername(user);

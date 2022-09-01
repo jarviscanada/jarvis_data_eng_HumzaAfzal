@@ -1,6 +1,6 @@
 package ca.jrvs.apps.trading.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import ca.jrvs.apps.trading.TestConfig;
 import ca.jrvs.apps.trading.model.domain.Account;
@@ -36,10 +36,10 @@ public class AccountDaoTest {
   public void insertOne() {
     savedTrader.setId(1);
     savedTrader.setCountry("Canada");
-    savedTrader.setDob(Date.valueOf("1999-10-27"));
-    savedTrader.setFirstName("Humza");
-    savedTrader.setLastName("Afzal");
-    savedTrader.setEmail("humza.afzal77@gmail.com");
+    savedTrader.setDob(Date.valueOf("2003-04-17"));
+    savedTrader.setFirstName("Test");
+    savedTrader.setLastName("Test");
+    savedTrader.setEmail("sadasdasdas");
     traderDao.save(savedTrader);
     savedAccount.setId(1);
     savedAccount.setAmount(323.00);
@@ -55,7 +55,8 @@ public class AccountDaoTest {
 
   @Test
   public void findAllById() {
-    List<Account> accounts = Lists.newArrayList(accountDao.findAllById(Arrays.asList(savedAccount.getId())));
+    List<Account> accounts = Lists.newArrayList(
+        accountDao.findAllById(Arrays.asList(savedAccount.getId())));
     assertEquals(1, accounts.size());
     assertEquals(savedAccount.getAmount(), accounts.get(0).getAmount());
   }

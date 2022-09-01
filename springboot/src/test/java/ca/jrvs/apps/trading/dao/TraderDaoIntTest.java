@@ -31,10 +31,10 @@ public class TraderDaoIntTest {
   public void insertOne() {
     savedTrader.setId(1);
     savedTrader.setCountry("Canada");
-    savedTrader.setDob(Date.valueOf("1999-10-27"));
-    savedTrader.setFirstName("Humza");
-    savedTrader.setLastName("Afzal");
-    savedTrader.setEmail("humza.afzal77@gmail.com");
+    savedTrader.setDob(Date.valueOf("2003-04-17"));
+    savedTrader.setFirstName("Test");
+    savedTrader.setLastName("Test");
+    savedTrader.setEmail("sadasdasdas");
     traderDao.save(savedTrader);
   }
 
@@ -45,7 +45,8 @@ public class TraderDaoIntTest {
 
   @Test
   public void findAllById() {
-    List<Trader> traders = Lists.newArrayList(traderDao.findAllById(Arrays.asList(savedTrader.getId())));
+    List<Trader> traders = Lists.newArrayList(
+        traderDao.findAllById(Arrays.asList(savedTrader.getId())));
     assertEquals(1, traders.size());
     assertEquals(savedTrader.getCountry(), traders.get(0).getCountry());
   }

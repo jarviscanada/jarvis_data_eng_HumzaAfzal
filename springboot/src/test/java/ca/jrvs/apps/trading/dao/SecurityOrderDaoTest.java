@@ -1,6 +1,6 @@
 package ca.jrvs.apps.trading.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import ca.jrvs.apps.trading.TestConfig;
 import ca.jrvs.apps.trading.model.domain.Account;
@@ -31,7 +31,6 @@ public class SecurityOrderDaoTest {
   private AccountDao accountDao;
   @Autowired
   private TraderDao traderDao;
-
   @Autowired
   private QuoteDao quoteDao;
 
@@ -51,10 +50,10 @@ public class SecurityOrderDaoTest {
     quoteDao.save(savedQuote);
     savedTrader.setId(1);
     savedTrader.setCountry("Canada");
-    savedTrader.setDob(Date.valueOf("1999-10-27"));
-    savedTrader.setFirstName("Humza");
-    savedTrader.setLastName("Afzal");
-    savedTrader.setEmail("humza.afzal77@gmail.com");
+    savedTrader.setDob(Date.valueOf("2003-04-17"));
+    savedTrader.setFirstName("Test");
+    savedTrader.setLastName("Test");
+    savedTrader.setEmail("sadasdasdas");
     traderDao.save(savedTrader);
     savedAccount.setId(1);
     savedAccount.setAmount(323.00);
@@ -81,7 +80,8 @@ public class SecurityOrderDaoTest {
 
   @Test
   public void findAllById() {
-    List<SecurityOrder> orders = Lists.newArrayList(securityOrderDao.findAllById(Arrays.asList(savedSecurityOrder.getId())));
+    List<SecurityOrder> orders = Lists.newArrayList(
+        securityOrderDao.findAllById(Arrays.asList(savedSecurityOrder.getId())));
     assertEquals(1, orders.size());
     assertEquals(savedSecurityOrder.getTicker(), orders.get(0).getTicker());
   }

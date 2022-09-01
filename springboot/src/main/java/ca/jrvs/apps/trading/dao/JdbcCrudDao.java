@@ -1,7 +1,6 @@
 package ca.jrvs.apps.trading.dao;
 
 import ca.jrvs.apps.trading.model.domain.Entity;
-import ca.jrvs.apps.trading.model.domain.Quote;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -24,7 +23,7 @@ public abstract class JdbcCrudDao<T extends Entity<Integer>> implements CrudRepo
 
   abstract public SimpleJdbcInsert getSimpleJdbcInsert();
 
-  abstract  public String getTableName();
+  abstract public String getTableName();
 
   abstract public String getIdColumnName();
 
@@ -61,13 +60,13 @@ public abstract class JdbcCrudDao<T extends Entity<Integer>> implements CrudRepo
           .queryForObject(selectSql,
               BeanPropertyRowMapper.newInstance(getEntityClass()), id));
     } catch (IncorrectResultSizeDataAccessException e) {
-      logger.debug("Can't find trader id:" + id, e);
+      logger.debug("Can't find trader id: " + id, e);
     }
     return entity;
   }
 
   @Override
-  public boolean existsById(Integer id){
+  public boolean existsById(Integer id) {
 
     Optional<T> result = findById(id);
     return result.isPresent();
@@ -90,9 +89,8 @@ public abstract class JdbcCrudDao<T extends Entity<Integer>> implements CrudRepo
       Optional<T> result = findById(id);
       if (result.isPresent()) {
         objects.add(result.get());
-      }
-      else {
-        throw new DataRetrievalFailureException("Could not find id " + id);
+      } else {
+        throw new DataRetrievalFailureException("Could not find id: " + id);
       }
     }
     return objects;
@@ -100,7 +98,7 @@ public abstract class JdbcCrudDao<T extends Entity<Integer>> implements CrudRepo
 
   @Override
   public void deleteById(Integer id) {
-    String delete_sql = "DELETE FROM " + getTableName() + " WHERE " + getIdColumnName() +" =?";
+    String delete_sql = "DELETE FROM " + getTableName() + " WHERE " + getIdColumnName() + " =?";
     Object[] ids = new Object[]{id};
     getJdbcTemplate().update(delete_sql, ids);
   }

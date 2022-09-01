@@ -5,6 +5,7 @@ public class Account implements Entity<Integer> {
   private Integer id;
   private Double amount;
   private Integer traderId;
+
   @Override
   public Integer getId() {
     return id;

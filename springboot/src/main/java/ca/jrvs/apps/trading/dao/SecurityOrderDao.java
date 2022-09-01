@@ -1,6 +1,8 @@
 package ca.jrvs.apps.trading.dao;
 
 import ca.jrvs.apps.trading.model.domain.SecurityOrder;
+import java.util.ArrayList;
+import java.util.List;
 import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +18,7 @@ public class SecurityOrderDao extends JdbcCrudDao<SecurityOrder> {
 
   private final String TABLE_NAME = "security_order";
   private final String ID_COLUMN = "id";
+  private final String ACCOUNT_ID_COLUMN = "account_id";
 
   private JdbcTemplate jdbcTemplate;
   private SimpleJdbcInsert simpleInsert;
@@ -23,8 +26,10 @@ public class SecurityOrderDao extends JdbcCrudDao<SecurityOrder> {
   @Autowired
   public SecurityOrderDao(DataSource dataSource) {
     this.jdbcTemplate = new JdbcTemplate(dataSource);
-    this.simpleInsert = new SimpleJdbcInsert(dataSource).withTableName(TABLE_NAME).usingGeneratedKeyColumns(ID_COLUMN);
+    this.simpleInsert = new SimpleJdbcInsert(dataSource).withTableName(TABLE_NAME)
+        .usingGeneratedKeyColumns(ID_COLUMN);
   }
+
   @Override
   public JdbcTemplate getJdbcTemplate() {
     return jdbcTemplate;
@@ -48,6 +53,15 @@ public class SecurityOrderDao extends JdbcCrudDao<SecurityOrder> {
   @Override
   Class<SecurityOrder> getEntityClass() {
     return SecurityOrder.class;
+  }
+
+  public void deleteByAccountId(Integer id) {
+    List<SecurityOrder> securityOrders = new ArrayList<SecurityOrder>();
+    String selectSql = "SELECT * FROM " + TABLE_NAME + " WHERE " + ACCOUNT_ID_COLUMN + " =?";
+    securityOrders = jdbcTemplate.queryForList(selectSql, SecurityOrder.class, id);
+    for (SecurityOrder securityOrder : securityOrders) {
+      deleteById(securityOrder.getId());
+    }
   }
 
   @Override
