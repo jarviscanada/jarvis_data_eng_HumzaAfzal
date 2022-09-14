@@ -7,7 +7,7 @@ Table of contents
 * [Improvements](#Improvements)
 
 # Introduction
-This java project is a trading app that lets users register, make an account, and trade in stocks using real world market data provided through the IEX Cloud API. The data is saved to a PostgreSQL database using JDBC. Currently it is a proof of concept so no actual trading is being done. This project follows the microservice architecture and the Springboot framework. The project is packaged using docker. SwaggerUI was utilized for the UI on the web browser.
+This java project is a trading app that lets users register, make an account, and trade in stocks using real-world market data provided through the IEX Cloud API. The data is saved to a PostgreSQL database using JDBC. Currently, it is a proof of concept so no actual trading is being done. This project follows the microservice architecture and the Springboot framework. The project is packaged using docker. SwaggerUI was utilized for the UI on the web browser.
 
 # Quick Start
 - Prequiresites: Docker, CentOS 7
@@ -16,7 +16,7 @@ This java project is a trading app that lets users register, make an account, an
     ```
     # PostgreSQL Image
     cd ./springboot/psql
-    docker build -t trading-psl .
+    docker build -t trading-pqsl .
 
     # Application Image
     cd ./springboot/
@@ -29,7 +29,7 @@ This java project is a trading app that lets users register, make an account, an
   - Run the docker containers
     ```
     # Run the PostgreSQL image
-    docker run --name trading-psql-dev \
+    docker run --name trading-psql \
     -e POSTGRES_PASSWORD=password \
     -e POSTGRES_DB=jrvstrading \
     -e POSTGRES_USER=postgres \
@@ -41,7 +41,7 @@ This java project is a trading app that lets users register, make an account, an
     IEX_PUB_TOKEN="your_token"
 
     # Run the application image
-    docker run --name trading-app-dev \
+    docker run --name trading-app \
     -e "PSQL_URL=jdbc:postgresql://localhost:5432/postgres" \
     -e "PSQL_USER=postgres" \
     -e "PSQL_PASSWORD=password" \
@@ -56,23 +56,23 @@ This java project is a trading app that lets users register, make an account, an
 ## Architecture
 ![ComponentDiagram](./assets/springbootdiagram.png)
   - Controller layer
-    - Handles user requests by using the REST API. Lets users get quotes, update them with the market value, get their daily list, add a trader and account, delete a trader, and add or withdraw funds through the web user interface made using SwaggerUI.
+    - Handles user requests by using the REST API. It lets users get quotes, update them with the market value, get their daily list, add a trader and account, delete a trader, and add or withdraw funds through the web user interface made using SwaggerUI.
   - Service layer
-    - Asseses the request to ensure business logic is being followed, e.g. Trader and Account must exist before you deposit money, etc.
+    - Assesses the request to ensure business logic is being followed, e.g. Trader and Account must exist before you deposit money, etc.
   - DAO layer
     - Takes the information from the requests and constructs SQL statements so the database can be changed to reflect the changes that happened.
   - SpringBoot: webservlet/TomCat and IoC
-    - Springboot is in charge of dependency management and will automatically create the instances of each class that a given class needs in order to fulfill it's role. Springboot also comes with an embedded Apache Tomcat servlet in order to communication through HTTP.
+    - Springboot is in charge of dependency management and will automatically create the instances of each class that a given class needs to fulfill its role. Springboot also comes with an embedded Apache Tomcat servlet to communicate through HTTP.
   - PSQL and IEX
-    - PSQL is used to store data about the traders, accounts, orders, quotes and the positions of traders. It is accessed using a JDBC datasource. IEX is used to get real time market data and update the quotes stored in the database if needed.
+    - PSQL is used to store data about the traders, accounts, orders, quotes, and positions of traders. It is accessed using a JDBC datasource. IEX is used to get real-time market data and update the quotes stored in the database if needed.
 
 ## REST API Usage
 ### Swagger
-Swagger UI allows anyone, be it your development team or your end consumers, to visualize and interact with the API's resources without having any of the implementation logic in place. It's automatically generated from your OpenAPI (formerly known as Swagger) Specification, with the visual documentation making it easy for back end implementation and client side consumption.
+  Swagger UI allows anyone, be it your development team or your end consumers, to visualize and interact with the API's resources without having any of the implementation logic in place. It's automatically generated from your OpenAPI (formerly known as Swagger) Specification, with the visual documentation making it easy for back-end implementation and client-side consumption.
 ### Quote Controller
 - The quote controller takes the market data from the IEX Cloud API and caches the data into the quote table in the postgres database.
 - List of endpoints
-  - GET `/quote/dailyList`: list all securities that are available to trading in this trading system.
+  - GET `/quote/dailyList`: list all securities that are available for trading in this trading system.
   - GET `/quote/iex/ticker/{ticker}`: get a quote of a specific security with the given ticker
   - POST `quote/tickerId/{tickerId}`: create a quote of a specific security with the given tickerId.
   - PUT `/quote/`: puts a quote into the database
@@ -99,10 +99,14 @@ Swagger UI allows anyone, be it your development team or your end consumers, to 
 The application was tested using JUnit. Integration tests were made for every class and method that was implemented. The code coverage for service and DAO classes were above 50%.
 
 # Deployment
-- docker diagram including images, containers, network, and docker hub
-e.g. https://www.notion.so/jarviscanada/Dockerize-Trading-App-fc8c8f4167ad46089099fd0d31e3855d#6f8912f9438e4e61b91fe57f8ef896e0
-- describe each image in details (e.g. how psql initialize tables)
+![DockerDiagram](./assets/dockerdiagram.png)
+- The client builds the containers from the images that are pulled from DockerHub
+- The client then initializes a docker network that both of the containers that are going to be made can communicate through
+- When the client runs the trading-psql image, a container that is connected to the docker network is created. The Postgres image takes the Postgres alpine image from the docker registry and runs the scripts found in the `./psql/` package. `init-db.sql` initializes the database, then the `schema.sql` file creates the schema of the database. This whole process happens in the container that was created.
+- The client then runs the trading-app image, which creates a container also connected to the docker network and with all the appropriate environment variables. The app is then ready to be run on the URL `http://localhost:8080/swagger-ui.html`. 
 
 # Improvements
 If you have more time, what would you improve?
-- at least 3 improvements
+- Add a controller that allows users to do security orders.
+- Add a dashboard that is completely removed from the logic, as right now you need to know JSON and REST API to use the application
+- Add a live position tracker that automatically updates your positions once you call the command.
