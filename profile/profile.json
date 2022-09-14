@@ -34,6 +34,11 @@
       ],
       "git_url": "/core_java",
       "name": "Core Java Apps"
+    },
+    {
+      "description": "This java project is a trading app that lets users register, make an account, and trade stocks using real-world market data provided through the IEX Cloud API. Currently, it is a proof of concept so no actual trading is being done. The data is saved to a PostgreSQL database using JDBC. This project follows the microservice architecture and the Springboot framework for dependency management. The project is packaged using docker. SwaggerUI was utilized for the UI on the web browser. The user sends an HTTP request using the REST API via SwaggerUI which gets processed in the controller layer, the controller layer sends the request to the service layer which makes sure the request conforms to business logic (e.g. a trader must have an account before depositing money). The request then gets sent to the data access layer which interacts with the database and makes the appropriate SQL statement to execute on the PostgreSQL instance.",
+      "git_url": "/springboot",
+      "name": "Springboot App"
     }
   ],
   "name": "Humza Afzal",
