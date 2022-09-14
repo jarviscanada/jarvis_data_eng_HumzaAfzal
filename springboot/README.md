@@ -7,37 +7,85 @@ Table of contents
 * [Improvements](#Improvements)
 
 # Introduction
-
+This java project is a trading app that lets users register, make an account, and trade in stocks using real world market data provided through the IEX Cloud API. The data is saved to a PostgreSQL database using JDBC. Currently it is a proof of concept so no actual trading is being done. This project follows the microservice architecture and the Springboot framework. The project is packaged using docker. SwaggerUI was utilized for the UI on the web browser.
 
 # Quick Start
 - Prequiresites: Docker, CentOS 7
 - Docker scripts with description
-	- build images
-  - create a docker network
-  - start containers
-- Try trading-app with SwaggerUI (screenshot)
+  - Build the docker images
+    ```
+    # PostgreSQL Image
+    cd ./springboot/psql
+    docker build -t trading-psl .
+
+    # Application Image
+    cd ./springboot/
+    docker build -t trading-app .
+    ```
+  - Create a new docker network
+    ```
+    sudo docker network create trading-net 
+    ```
+  - Run the docker containers
+    ```
+    # Run the PostgreSQL image
+    docker run --name trading-psql-dev \
+    -e POSTGRES_PASSWORD=password \
+    -e POSTGRES_DB=jrvstrading \
+    -e POSTGRES_USER=postgres \
+    --network trading-net \
+    -v pgdata:/var/lib/postgresql/data \
+    -d -p 5432:5432 trading-psql
+
+    # Set your IEX credential
+    IEX_PUB_TOKEN="your_token"
+
+    # Run the application image
+    docker run --name trading-app-dev \
+    -e "PSQL_URL=jdbc:postgresql://localhost:5432/postgres" \
+    -e "PSQL_USER=postgres" \
+    -e "PSQL_PASSWORD=password" \
+    -e "IEX_PUB_TOKEN=${IEX_PUB_TOKEN}" \
+    --network trading-net \
+    -p 8080:8080 -t trading-app
+    ```
+- Try trading-app with SwaggerUI
+  ![SwaggerUI](./assets/swaggerui.png)
 
 # Implemenation
 ## Architecture
-- Draw a component diagram that contains controllers, services, DAOs, SQL, IEX Cloud, WebServlet/Tomcat, HTTP client, and SpringBoot. (you must create your own diagram)
-- briefly explain the following components and services (3-5 sentences for each)
-  - Controller layer (e.g. handles user requests....)
+![ComponentDiagram](./assets/springbootdiagram.png)
+  - Controller layer
+    - Handles user requests by using the REST API. Lets users get quotes, update them with the market value, get their daily list, add a trader and account, delete a trader, and add or withdraw funds through the web user interface made using SwaggerUI.
   - Service layer
+    - Asseses the request to ensure business logic is being followed, e.g. Trader and Account must exist before you deposit money, etc.
   - DAO layer
+    - Takes the information from the requests and constructs SQL statements so the database can be changed to reflect the changes that happened.
   - SpringBoot: webservlet/TomCat and IoC
+    - Springboot is in charge of dependency management and will automatically create the instances of each class that a given class needs in order to fulfill it's role. Springboot also comes with an embedded Apache Tomcat servlet in order to communication through HTTP.
   - PSQL and IEX
+    - PSQL is used to store data about the traders, accounts, orders, quotes and the positions of traders. It is accessed using a JDBC datasource. IEX is used to get real time market data and update the quotes stored in the database if needed.
 
 ## REST API Usage
 ### Swagger
-What's swagger (1-2 sentences, you can copy from swagger docs). Why are we using it or who will benefit from it?
+Swagger UI allows anyone, be it your development team or your end consumers, to visualize and interact with the API's resources without having any of the implementation logic in place. It's automatically generated from your OpenAPI (formerly known as Swagger) Specification, with the visual documentation making it easy for back end implementation and client side consumption.
 ### Quote Controller
-- High-level description for this controller. Where is market data coming from (IEX) and how did you cache the quote data (PSQL). Briefly talk about data from within your app
-- briefly explain each endpoint
-  e.g.
-  - GET `/quote/dailyList`: list all securities that are available to trading in this trading system blah..blah..
+- The quote controller takes the market data from the IEX Cloud API and caches the data into the quote table in the postgres database.
+- List of endpoints
+  - GET `/quote/dailyList`: list all securities that are available to trading in this trading system.
+  - GET `/quote/iex/ticker/{ticker}`: get a quote of a specific security with the given ticker
+  - POST `quote/tickerId/{tickerId}`: create a quote of a specific security with the given tickerId.
+  - PUT `/quote/`: puts a quote into the database
+  - PUT `/quote/iexMarketData`: updates the cached data from the market data given from IEX Cloud.
 ### Trader Controller
-- High-level description for trader controller (e.g. it can manage trader and account information. it can deposit and withdraw fund from a given account)
-- briefly explain each endpoint
+- The trader controller manages trader and account information. It can also deposit and withdraw funds from existing accounts
+- List of endpoints
+  - DELETE `/trader/traderId/{traderId}`: deletes a trader by ID.
+  - POST `/trader/`: Create a trader with an account.
+  - POST `/trader/firstname/{firstname}/lastname/{lastname}/dob/{dob}/country/{country}/email/{email}`: Create a trader with given fields and create an account.
+  - PUT `/trader/deposit/traderId/{traderId}/amount/{amount}`: Deposit an amount of money on the given traderId.
+  - PUT `/trader/withdraw/traderId/{traderId}/amount/{amount}`: Withdraw an amount of money on the given traderId.
+<!---
 ### Order Controller
 - High-level description for this controller.
 - briefly explain each endpoint
@@ -46,9 +94,9 @@ What's swagger (1-2 sentences, you can copy from swagger docs). Why are we using
 ### Optional(Dashboard controller)
 - High-level description for this controller.
 - briefly explain each endpoint
-
+--->
 # Test 
-How did you test your application? Did you use any testing libraries? What's the code coverage?
+The application was tested using JUnit. Integration tests were made for every class and method that was implemented. The code coverage for service and DAO classes were above 50%.
 
 # Deployment
 - docker diagram including images, containers, network, and docker hub
