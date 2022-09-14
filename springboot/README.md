@@ -1,7 +1,7 @@
 Table of contents
 * [Introduction](#Introduction)
 * [Quick Start](#QuickStart)
-* [Implementation](#Implemenation)
+* [Implementation](#Implementation)
 * [Test](#Test)
 * [Deployment](#Deployment)
 * [Improvements](#Improvements)
@@ -52,7 +52,7 @@ This java project is a trading app that lets users register, make an account, an
 - Try trading-app with SwaggerUI
   ![SwaggerUI](./assets/swaggerui.png)
 
-# Implemenation
+# Implementation
 ## Architecture
 ![ComponentDiagram](./assets/springbootdiagram.png)
   - Controller layer
